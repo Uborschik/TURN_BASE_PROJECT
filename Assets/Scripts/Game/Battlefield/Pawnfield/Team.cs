@@ -1,50 +1,26 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace Game.Gameplay
 {
     public class Team<T> where T : BasePawn
     {
-        private readonly T[] members;
+        private readonly List<T> members;
 
         public int CurrentTeamSize { get; private set; }
 
-        public Team(int maxTeamSize)
+        public Team()
         {
-            members = new T[maxTeamSize];
+            members = new List<T>();
         }
 
-        public bool TryAddToTeam(T candidate, int index)
+        public void AddToTeam(T candidate)
         {
-            if (CurrentTeamSize == members.Length) return false;
-
-            if (members[index] == null)
-            {
-                members[index] = candidate;
-                CurrentTeamSize++;
-                return true;
-            }
-
-            return false;
+            members.Add(candidate);
         }
 
-        public bool TryRemoveFromTeam(T candidate)
+        public void RemoveFromTeam(T candidate)
         {
-            if (CurrentTeamSize == 0) return false;
-
-            for (int i = 0; i < members.Length; i++)
-            {
-                if (members[i] == candidate)
-                {
-                    members[i] = null;
-                    CurrentTeamSize--;
-                    return true;
-                }
-            }
-
-            return false;
+            members.Remove(candidate);
         }
     }
 }

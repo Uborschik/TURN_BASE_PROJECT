@@ -95,21 +95,13 @@ namespace Game.DI
             }
 
             resolutionsCache.Add(type);
-            Debug.Log(entriesMap.Count);
+
             try
             {
                 if (entriesMap.TryGetValue(type, out var registration))
                 {
-                    Debug.Log($"Success for {type}");
-
                     return registration.Resolve();
                 }
-                else
-                {
-                    Debug.Log($"Can`t find registration for {type}");
-                }
-
-                Debug.Log(parentContainer);
 
                 if (parentContainer != null)
                 {
@@ -137,7 +129,6 @@ namespace Game.DI
         private void Register(Type type, Registration registration)
         {
             entriesMap.Add(type, registration);
-            Debug.Log(type);
         }
 
         private void ThrowIfContainsRegistration(Type type)

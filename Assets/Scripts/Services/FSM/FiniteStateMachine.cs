@@ -1,6 +1,6 @@
-namespace Game.Services
+namespace Game.Services.FSM
 {
-    public class StateMachine : IStateMachine
+    public class FiniteStateMachine
     {
         private State currentState;
 

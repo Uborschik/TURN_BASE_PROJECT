@@ -1,3 +1,4 @@
+using Game.Services.Input;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +32,9 @@ namespace Game.DI
         protected virtual void Awake()
         {
             var container = new DIContainer();
+
+            container.RegisterType<InputInstaller>();
+
             Run(container);
 
             sceneContainer.Initializables.ForEach(i => i.Initialise());

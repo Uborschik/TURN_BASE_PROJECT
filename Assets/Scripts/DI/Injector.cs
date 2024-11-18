@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game.DI
 {
@@ -42,6 +41,7 @@ namespace Game.DI
         {
             var type = obj.GetType();
             var fields = type.GetFields(BINDING_FLAGS);
+
             foreach (var field in fields)
             {
                 var attribute = field.GetCustomAttribute<InjectAttribute>();
@@ -115,8 +115,8 @@ namespace Game.DI
         public object CreateInstance(Type type)
         {
             var constructors = type.GetConstructors(BINDING_FLAGS).ToList();
-
             constructors = constructors.OrderByDescending(x => x.GetParameters().Length).ToList();
+
             foreach (var constructor in constructors)
             {
                 var parameters = constructor.GetParameters().ToList();

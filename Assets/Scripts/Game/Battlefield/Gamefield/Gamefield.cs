@@ -42,7 +42,7 @@ namespace Game.Gameplay
             return pathfinder.FindPath(startNode, goalNode).ToArray();
         }
 
-        public bool TryGetCentralPositionAtWorldPosition(Vector3 position, out Vector3 center)
+        public bool TryGetCentralPositionAtWorldPosition(Vector3 position, out Vector3? center)
         {
             GetXY(position, out var x, out var y);
 
@@ -52,7 +52,7 @@ namespace Game.Gameplay
                 return true;
             }
 
-            center = default;
+            center = null;
             return false;
         }
 

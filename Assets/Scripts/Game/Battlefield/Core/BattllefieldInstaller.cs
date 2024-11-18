@@ -8,9 +8,11 @@ namespace Game.Battlefield.Core
     {
         [SerializeField] private TilemapReaderData tilemapReaderData;
         [SerializeField] private PawnfieldData pawnfieldData;
+        [SerializeField] private Camera currentCamera;
 
         public override void Bind(DIContainer container)
         {
+            container.RegisterInstance(currentCamera);
             container.RegisterInstance(tilemapReaderData);
             container.RegisterType<Gamefield>();
             container.RegisterInstance(pawnfieldData);

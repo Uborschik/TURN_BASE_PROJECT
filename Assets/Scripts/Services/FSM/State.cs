@@ -1,10 +1,10 @@
-namespace Game.Services
+namespace Game.Services.FSM
 {
     public class State
     {
-        protected IStateMachine StateMachine;
+        protected FiniteStateMachine StateMachine;
 
-        public State(IStateMachine stateMachine)
+        public State(FiniteStateMachine stateMachine)
         {
             StateMachine = stateMachine;
         }
