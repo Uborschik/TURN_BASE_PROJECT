@@ -1,21 +1,15 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Services
 {
     public class BaseNavigationNode : INavigationNode
     {
+        private readonly Vector3Int pivotPosition;
+        public Vector3Int PivotPosition => pivotPosition;
 
-        private readonly int pivotX;
-        public int PivotX => pivotX;
-
-        private readonly float centerX;
-        public float CenterX => centerX;
-
-        private readonly int pivotY;
-        public int PivotY => pivotY;
-
-        private readonly float centerY;
-        public float CenterY => centerY;
+        private readonly Vector3 centerPosition;
+        public Vector3 CenterPosition => centerPosition;
         public int G { get; set; }
         public int H { get; set; }
         public int F => G + H;
@@ -24,12 +18,10 @@ namespace Game.Services
         public INavigationNode Parent { get; set; }
         public List<INavigationNode> Neighbours { get; private set; }
 
-        public BaseNavigationNode(int pivotX, float centerX, int pivotY, float centerY, bool isWalkable = true)
+        public BaseNavigationNode(Vector3Int pivotPosition, Vector3 centerPosition, bool isWalkable = true)
         {
-            this.pivotX = pivotX;
-            this.centerX = centerX;
-            this.pivotY = pivotY;
-            this.centerY = centerY;
+            this.pivotPosition = pivotPosition;
+            this.centerPosition = centerPosition;
             IsWalkable = isWalkable;
         }
 

@@ -1,5 +1,6 @@
-﻿using Game.DI;
-using Game.Services;
+﻿using Game.Services;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils;
@@ -17,6 +18,9 @@ namespace Game.Gameplay
         private readonly IGamefieldNode[,] mapGrid;
         private readonly INavigationNode[,] navGrid;
 
+        private readonly int width;
+        private readonly int height;
+
         public Gamefield(TilemapReaderData tilemapReaderData)
         {
             mapOffsetByX = tilemapReaderData.GFTilemap.cellBounds.position.x;
@@ -27,6 +31,9 @@ namespace Game.Gameplay
             tilemapReader.GenerateNodes(out BaseGamefieldNode[,] mapGrid, out BaseNavigationNode[,] navGrid);
             this.mapGrid = mapGrid;
             this.navGrid = navGrid;
+
+            width = mapGrid.GetLength(0);
+            height = mapGrid.GetLength(1);
 
             pathfinder = new(navGrid);
         }
@@ -42,18 +49,59 @@ namespace Game.Gameplay
             return pathfinder.FindPath(startNode, goalNode).ToArray();
         }
 
-        public bool TryGetCentralPositionAtWorldPosition(Vector3 position, out Vector3? center)
+        public BaseGamefieldNode GetNodeAtWorldPosition(Vector3 position)
+        {
+            if (TryGetNodeAtWorldPosition(position, out var node))
+            {
+                return (BaseGamefieldNode)node;
+            }
+
+            return null;
+        }
+
+        public BaseGamefieldNode[] GetRandomNodesAtRightGridSideOnEmptyNodes(int count)
+        {
+            var nodes = new BaseGamefieldNode[count];
+            var x = width - 1;
+            var i = 0;
+
+            while(i < count)
+            {
+                if (i == height) x--;
+
+                var y = UnityEngine.Random.Range(0, height);
+
+                var node = mapGrid[x, y];
+
+                if (nodes.Contains(node)) continue;
+
+                if (node.IsWalkable)
+                {
+                    nodes[i] = (BaseGamefieldNode)node;
+                    i++;
+                }
+            }
+
+            return nodes;
+        }
+
+        private bool TryGetNodeAtWorldPosition(Vector3 position, out IGamefieldNode node)
         {
             GetXY(position, out var x, out var y);
 
-            if (mapGrid.TryGetValue(x, y, out var node))
+            if (IsValid(3, x))
             {
-                center = new Vector3(node.CenterX, node.CenterY);
+                node = mapGrid[x, y];
                 return true;
             }
 
-            center = null;
+            node = null;
             return false;
+        }
+
+        private bool IsValid(int maxX, int x)
+        {
+            return x >= 0 && x < maxX;
         }
 
         private void GetXY(Vector3 position, out int x, out int y)

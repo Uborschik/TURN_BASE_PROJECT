@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Grid
-  m_Shader: {fileID: 4800000, guid: 25fd25b9f48ae7a4188d1210a09c1a80, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8f6b85c8cf6aa114593cbc1573c9d54c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _MaskPower: 1
     - _MaskRadius: 3
-    - _Power: 30
+    - _Power: 80
     - _Tiling: 1
     - _ZWrite: 0
     m_Colors:

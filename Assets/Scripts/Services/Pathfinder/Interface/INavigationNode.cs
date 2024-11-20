@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Services
 {
     public interface INavigationNode : IHeapItem<INavigationNode>
     {
-        public int PivotX { get; }
-        public float CenterX { get; }
-        public int PivotY { get; }
-        public float CenterY { get; }
+        public Vector3Int PivotPosition { get; }
+        public Vector3 CenterPosition { get; }
         public int G { get; set; }
         public int H { get; set; }
         public int F { get; }

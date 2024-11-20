@@ -17,6 +17,16 @@ namespace Utils
             return false;
         }
 
+        public static bool Contains<T>(this T[,] values, T value)
+        {
+            foreach (var item in values)
+            {
+                if (item.Equals(value)) return true;
+            }
+
+            return false;
+        }
+
         public static bool TryGetValueOfType<Torigin, Tfound>(this Torigin[,] values, int x, int y, out Tfound value) where Tfound : class, Torigin
         {
             if (IsValid(values, x, y))

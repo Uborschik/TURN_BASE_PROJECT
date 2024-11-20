@@ -45,16 +45,16 @@ namespace Game.Gameplay
                 {
                     var pivotX = x + bounds.position.x;
                     var pivotY = y + bounds.position.y;
-
-                    var position = new Vector3Int(pivotX, pivotY);
+                    var pivotPosition = new Vector3Int(pivotX, pivotY);
 
                     var centerX = pivotX + halfCellSizeX;
                     var centerY = pivotY + halfCellSizeY;
+                    var centerPosition = new Vector3(centerX, centerY);
 
-                    if(tilemap.GetTile(position))
+                    if(tilemap.GetTile(pivotPosition))
                     {
-                        gfNodes[x, y] = new BaseGamefieldNode(pivotX, centerX, pivotY, centerY);
-                        navNodes[x, y] = new BaseNavigationNode(pivotX, centerX, pivotY, centerY);
+                        gfNodes[x, y] = new BaseGamefieldNode(pivotPosition, centerPosition);
+                        navNodes[x, y] = new BaseNavigationNode(pivotPosition, centerPosition);
                     }
                 }
             }

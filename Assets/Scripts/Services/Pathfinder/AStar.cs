@@ -66,7 +66,7 @@ namespace Game.Services
 
             while (currentNode != startNode)
             {
-                var position = new Vector3(currentNode.CenterX, currentNode.CenterY);
+                var position = new Vector3(currentNode.CenterPosition.x, currentNode.CenterPosition.y);
 
                 path.Add(position);
                 currentNode = currentNode.Parent;
@@ -78,8 +78,8 @@ namespace Game.Services
 
         private int GetDistance(INavigationNode a, INavigationNode b)
         {
-            var dstX = Mathf.Abs(a.PivotX - b.PivotX);
-            var dstY = Mathf.Abs(a.PivotY - b.PivotY);
+            var dstX = Mathf.Abs(a.PivotPosition.x - b.PivotPosition.x);
+            var dstY = Mathf.Abs(a.PivotPosition.y - b.PivotPosition.y);
 
             if (dstX > dstY)
                 return DIAGONAL_COST * dstY + GENERAL_COST * (dstX - dstY);

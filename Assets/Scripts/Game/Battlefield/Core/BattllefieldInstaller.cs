@@ -6,18 +6,21 @@ namespace Game.Battlefield.Core
 {
     public class BattllefieldInstaller : MonoInstaller
     {
+        [SerializeField] private Camera currentCamera;
+        [Space(8f)]
         [SerializeField] private TilemapReaderData tilemapReaderData;
         [SerializeField] private PawnfieldData pawnfieldData;
-        [SerializeField] private Camera currentCamera;
 
         public override void Bind(DIContainer container)
         {
             container.RegisterInstance(currentCamera);
             container.RegisterInstance(tilemapReaderData);
-            container.RegisterType<Gamefield>();
             container.RegisterInstance(pawnfieldData);
+
+            container.RegisterType<Gamefield>();
             container.RegisterType<PawnFactory>();
             container.RegisterType<Pawnfield>();
+
             container.RegisterTypeAndInterfaces<BattleStageCyclic>();
         }
     }
