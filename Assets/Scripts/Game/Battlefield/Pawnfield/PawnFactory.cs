@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Gameplay.Entities;
+using UnityEngine;
 
 namespace Game.Gameplay
 {
@@ -6,16 +7,10 @@ namespace Game.Gameplay
     {
         [Inject] private PawnfieldData pawnfieldData;
 
-        public PlayerPawn CreatePlayer(Vector3 position)
+        public CommonerPawn CreateCommoner(Vector3 position)
         {
-            var view = CreatePawnView(pawnfieldData.PlayerData, position);
-            return new PlayerPawn(view);
-        }
-
-        public EnemyPawn CreateEnemy(Vector3 position)
-        {
-            var view = CreatePawnView(pawnfieldData.EnemyData, position);
-            return new EnemyPawn(view);
+            var view = CreatePawnView(pawnfieldData.CommonerData, position);
+            return new CommonerPawn(view);
         }
 
         private Transform CreatePawnView(IPawnData data, Vector3? position)

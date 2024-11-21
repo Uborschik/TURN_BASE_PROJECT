@@ -21,7 +21,7 @@ namespace Game.Battlefield.Core
             container.RegisterType<PawnFactory>();
             container.RegisterType<Pawnfield>();
 
-            container.RegisterTypeAndInterfaces<BattleStageCyclic>();
+            container.RegisterTypeAndInterfaces<BattleStageBehaviour>();
         }
     }
 }

@@ -493,10 +493,8 @@ MonoBehaviour:
   tilemapReaderData:
     gfTilemap: {fileID: 1979080861}
   pawnfieldData:
-    playerData:
+    commonerData:
       pawnObj: {fileID: 7120338217591690445, guid: 0a2d47de81d91234d8cb818403e67b0a, type: 3}
-    enemyData:
-      pawnObj: {fileID: 8836863311117755897, guid: 8c880229320142f48b17be9019acaa5c, type: 3}
 --- !u!114 &1689672799
 MonoBehaviour:
   m_ObjectHideFlags: 0

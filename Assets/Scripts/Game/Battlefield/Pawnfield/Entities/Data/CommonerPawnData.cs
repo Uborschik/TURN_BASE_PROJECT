@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Game.Gameplay
 {
     [Serializable]
-    public struct PlayerPawnData : IPawnData
+    public struct CommonerPawnData : IPawnData
     {
         [SerializeField] private Transform pawnObj;
 

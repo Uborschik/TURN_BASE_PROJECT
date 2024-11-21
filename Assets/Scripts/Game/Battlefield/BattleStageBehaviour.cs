@@ -8,14 +8,12 @@ using UnityEngine.InputSystem;
 
 namespace Game.Battlefield
 {
-    public class BattleStageCyclic : IStartable
+    public class BattleStageBehaviour : IInitializable, IStartable
     {
         #region InjectedFields
 
         [Inject] private readonly InputInstaller input;
-        [Inject] private readonly Gamefield gamefield;
         [Inject] private readonly Pawnfield pawnfield;
-        [Inject] private readonly PawnFactory pawnFactory;
         [Inject] private readonly Camera currentCamera;
 
         #endregion
@@ -24,31 +22,30 @@ namespace Game.Battlefield
         public event Action<Vector3> ClickPosition;
         private InputAction Click => input.Click;
         private InputAction Escape => input.Escape;
+        public InputAction Space => input.Space;
 
         #endregion
 
-        public Gamefield Gamefield => gamefield;
         public Pawnfield Pawnfield => pawnfield;
-        public PawnFactory PawnFactory => pawnFactory;
 
         #region FSMRegion
 
-        public PawnPlacementState PlacementState { get; }
-        public BattleState BattleState { get; }
+        public PawnPlacementState PlacementState { get; private set; }
+        public BattleState BattleState { get; private set; }
 
-        private readonly FiniteStateMachine stateMachine;
+        private FiniteStateMachine stateMachine;
 
         #endregion
 
-        public BattleStageCyclic()
+        #region ControlsMethods
+
+        public void Initialise()
         {
             PlacementState = new(stateMachine, this);
             BattleState = new(stateMachine, this);
 
             stateMachine = new();
         }
-
-        #region ControlsMethods
 
         public void Start()
         {

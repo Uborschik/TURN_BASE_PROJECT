@@ -6,10 +6,8 @@ namespace Game.Gameplay
     [Serializable]
     public struct PawnfieldData
     {
-        [SerializeField] private PlayerPawnData playerData;
-        [SerializeField] private EnemyPawnData enemyData;
+        [SerializeField] private CommonerPawnData commonerData;
 
-        public readonly PlayerPawnData PlayerData => playerData;
-        public readonly EnemyPawnData EnemyData => enemyData;
+        public readonly CommonerPawnData CommonerData => commonerData;
     }
 }

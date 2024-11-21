@@ -1,27 +1,28 @@
+using Game.Gameplay.Entities;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Game.Gameplay
 {
-    public class Team<T> where T : BasePawn
+    public class Team
     {
-        private readonly List<T> members;
+        private readonly List<BasePawn> members;
 
-        public int CurrentTeamSize { get; private set; }
+        public List<BasePawn> Members => members;
+        public int CurrentTeamSize => members.Count;
 
         public Team()
         {
-            members = new List<T>();
+            members = new List<BasePawn>();
         }
 
-        public void AddToTeam(T candidate)
+        public void AddToTeam(BasePawn candidate)
         {
-            members.Add(candidate);
+            Members.Add(candidate);
         }
 
-        public void RemoveFromTeam(T candidate)
+        public void RemoveFromTeam(BasePawn candidate)
         {
-            members.Remove(candidate);
+            Members.Remove(candidate);
         }
     }
 }
