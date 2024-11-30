@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" modified="2024-11-22T10:41:56.598Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36" etag="Uc1agLLjlW3Yex_5YRnR" version="24.6.4" type="device">
+  <diagram name="Страница — 1" id="rGhLGsD2KJ3WFc9DwT2v">
+    <mxGraphModel dx="1050" dy="575" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="y_td7a8I4tVhq-NikRJD-1" value="DI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="y_td7a8I4tVhq-NikRJD-3" target="y_td7a8I4tVhq-NikRJD-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-3" value="Input&lt;div&gt;Camera&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="y_td7a8I4tVhq-NikRJD-5" target="y_td7a8I4tVhq-NikRJD-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-5" value="Pawnfield" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-8" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="280" y="120" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-2" value="BattleStageBehaviour" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="y_td7a8I4tVhq-NikRJD-8">
+          <mxGeometry width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="y_td7a8I4tVhq-NikRJD-7" value="StateMachine&lt;div&gt;PawnPlacementState&lt;br&gt;&lt;/div&gt;&lt;div&gt;BattleState&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="y_td7a8I4tVhq-NikRJD-8">
+          <mxGeometry y="60" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

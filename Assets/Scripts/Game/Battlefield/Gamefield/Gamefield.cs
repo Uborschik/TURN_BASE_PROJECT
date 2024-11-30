@@ -1,11 +1,10 @@
 ﻿using Game.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.Gamefields
 {
     public sealed class Gamefield
     {
@@ -15,27 +14,44 @@ namespace Game.Gameplay
         private readonly TilemapReader tilemapReader;
         private readonly AStar pathfinder;
 
-        private readonly IGamefieldNode[,] mapGrid;
         private readonly INavigationNode[,] navGrid;
 
         private readonly int width;
         private readonly int height;
 
-        public Gamefield(TilemapReaderData tilemapReaderData)
+        public Gamefield(TilemapReaderConfig tilemapReaderData)
         {
             mapOffsetByX = tilemapReaderData.GFTilemap.cellBounds.position.x;
             mapOffsetByY = tilemapReaderData.GFTilemap.cellBounds.position.y;
 
             tilemapReader = new(tilemapReaderData.GFTilemap);
 
-            tilemapReader.GenerateNodes(out BaseGamefieldNode[,] mapGrid, out BaseNavigationNode[,] navGrid);
-            this.mapGrid = mapGrid;
+            tilemapReader.GenerateNodes(out BaseNavigationNode[,] navGrid);
             this.navGrid = navGrid;
 
-            width = mapGrid.GetLength(0);
-            height = mapGrid.GetLength(1);
+            width = navGrid.GetLength(0);
+            height = navGrid.GetLength(1);
 
             pathfinder = new(navGrid);
+        }
+
+        public Vector3[] GetArea(int maxX)
+        {
+            var area = new Vector3[maxX * height];
+            var i = 0;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < maxX; x++)
+                {
+                    var node = navGrid[x, y];
+
+                    area[i] = node.CenterPosition;
+                    i++;
+                }
+            }
+
+            return area;
         }
 
         public Vector3[] FindPathBetween(Vector3 startPosition, Vector3 goalPosition)
@@ -49,19 +65,19 @@ namespace Game.Gameplay
             return pathfinder.FindPath(startNode, goalNode).ToArray();
         }
 
-        public BaseGamefieldNode GetNodeAtWorldPosition(Vector3 position)
+        public BaseNavigationNode GetNodeAtWorldPosition(Vector3 position)
         {
             if (TryGetNodeAtWorldPosition(position, out var node))
             {
-                return (BaseGamefieldNode)node;
+                return (BaseNavigationNode)node;
             }
 
             return null;
         }
 
-        public BaseGamefieldNode[] GetRandomNodesAtRightGridSideOnEmptyNodes(int count)
+        public BaseNavigationNode[] GetRandomNodesAtRightGridSideOnEmptyNodes(int count)
         {
-            var nodes = new BaseGamefieldNode[count];
+            var nodes = new BaseNavigationNode[count];
             var x = width - 1;
             var i = 0;
 
@@ -71,13 +87,13 @@ namespace Game.Gameplay
 
                 var y = UnityEngine.Random.Range(0, height);
 
-                var node = mapGrid[x, y];
+                var node = navGrid[x, y];
 
                 if (nodes.Contains(node)) continue;
 
                 if (node.IsWalkable)
                 {
-                    nodes[i] = (BaseGamefieldNode)node;
+                    nodes[i] = (BaseNavigationNode)node;
                     i++;
                 }
             }
@@ -85,13 +101,13 @@ namespace Game.Gameplay
             return nodes;
         }
 
-        private bool TryGetNodeAtWorldPosition(Vector3 position, out IGamefieldNode node)
+        private bool TryGetNodeAtWorldPosition(Vector3 position, out INavigationNode node)
         {
             GetXY(position, out var x, out var y);
 
             if (IsValid(3, x))
             {
-                node = mapGrid[x, y];
+                node = navGrid[x, y];
                 return true;
             }
 

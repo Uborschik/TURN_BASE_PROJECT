@@ -1,0 +1,40 @@
+#pragma kernel RenderMap
+#pragma kernel FillMap
+
+RWTexture2D<float> TextureMap;
+
+uint ResolutionX;
+uint ResolutionY;
+
+float2 Position;
+bool SetClear;
+
+[numthreads(8, 8, 1)]
+void RenderMap (uint3 id : SV_DispatchThreadID) {
+    if(id.x > ResolutionX - 1 || id.y > ResolutionY - 1) {
+        return;
+    }
+
+    float2 position = float2(id.x, id.y) + 0.5f;
+    if(abs(Position.x - position.x) < 0.5 && abs(Position.y - position.y) < 0.5) {
+        if(SetClear) {
+            TextureMap[id.xy] = 1;
+        }
+        else {
+            TextureMap[id.xy] = 0;
+        }
+    }
+}
+
+[numthreads(8, 8, 1)]
+void FillMap (uint3 id : SV_DispatchThreadID) {
+    if(id.x > ResolutionX - 1 || id.y > ResolutionY - 1) {
+        return;
+    }
+    if(SetClear) {
+        TextureMap[id.xy] = 1;
+    }
+    else {
+        TextureMap[id.xy] = 0;
+    }
+}

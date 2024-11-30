@@ -1,3 +1,4 @@
+using Game.Battlefield.Pawnfields;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,9 @@ namespace Game.Services
 {
     public class BaseNavigationNode : INavigationNode
     {
+        private Character content;
+        public Character Content => content;
+
         private readonly Vector3Int pivotPosition;
         public Vector3Int PivotPosition => pivotPosition;
 
@@ -23,6 +27,11 @@ namespace Game.Services
             this.pivotPosition = pivotPosition;
             this.centerPosition = centerPosition;
             IsWalkable = isWalkable;
+        }
+
+        public void SetContent(Character pawn)
+        {
+            content = pawn;
         }
 
         public int CompareTo(INavigationNode other)

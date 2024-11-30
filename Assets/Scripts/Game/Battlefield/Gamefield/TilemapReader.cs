@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
 
-namespace Game.Gameplay
+namespace Game.Gameplay.Gamefields
 {
     public class TilemapReader
     {
@@ -34,9 +34,8 @@ namespace Game.Gameplay
             directions = Directions2D.eightDirections;
         }
 
-        public void GenerateNodes(out BaseGamefieldNode[,] gfNodes, out BaseNavigationNode[,] navNodes)
+        public void GenerateNodes(out BaseNavigationNode[,] navNodes)
         {
-            gfNodes = new BaseGamefieldNode[width, height];
             navNodes = new BaseNavigationNode[width, height];
 
             for (int y = 0; y < height; y++)
@@ -53,27 +52,22 @@ namespace Game.Gameplay
 
                     if(tilemap.GetTile(pivotPosition))
                     {
-                        gfNodes[x, y] = new BaseGamefieldNode(pivotPosition, centerPosition);
                         navNodes[x, y] = new BaseNavigationNode(pivotPosition, centerPosition);
                     }
                 }
             }
 
-            AddNeighbours(gfNodes, navNodes);
+            AddNeighbours(navNodes);
         }
 
-        private void AddNeighbours(BaseGamefieldNode[,] gfNodes, BaseNavigationNode[,] navNodes)
+        private void AddNeighbours(BaseNavigationNode[,] navNodes)
         {
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    var gfNode = gfNodes[x, y];
                     var navNode = navNodes[x, y];
 
-                    if (gfNode == null) continue;
-
-                    var gfNeighbours = new List<IGamefieldNode>();
                     var navNeighbours = new List<INavigationNode>();
 
                     foreach (var direction in directions)
@@ -81,18 +75,12 @@ namespace Game.Gameplay
                         var newX = x + direction.x;
                         var newY = y + direction.y;
 
-                        if (gfNodes.TryGetValue(newX, newY, out var gfNeighbour))
-                        {
-                            gfNeighbours.Add(gfNeighbour);
-                        }
-
                         if (navNodes.TryGetValue(newX, newY, out var navNeighbour))
                         {
                             navNeighbours.Add(navNeighbour);
                         }
                     }
 
-                    gfNode.AddNeighbors(gfNeighbours);
                     navNode.AddNeighbors(navNeighbours);
                 }
             }
